@@ -1,0 +1,89 @@
+{
+  "infected": 11273,
+  "deceased": 524,
+  "infectedByRegion": [
+    {
+      "region": "dolnoslaskie",
+      "infectedCount": 1278,
+      "deceasedCount": 40
+    },
+    {
+      "region": "kujawsko-pomorskie",
+      "infectedCount": 474,
+      "deceasedCount": 26
+    },
+    {
+      "region": "lubelskie",
+      "infectedCount": 346,
+      "deceasedCount": 10
+    },
+    {
+      "region": "lubuskie",
+      "infectedCount": 85,
+      "deceasedCount": 0
+    },
+    {
+      "region": "lodzkie",
+      "infectedCount": 836,
+      "deceasedCount": 21
+    },
+    {
+      "region": "malopolskie",
+      "infectedCount": 812,
+      "deceasedCount": 27
+    },
+    {
+      "region": "mazowieckie",
+      "infectedCount": 2302,
+      "deceasedCount": 172
+    },
+    {
+      "region": "opolskie",
+      "infectedCount": 352,
+      "deceasedCount": 23
+    },
+    {
+      "region": "podkarpackie",
+      "infectedCount": 311,
+      "deceasedCount": 16
+    },
+    {
+      "region": "podlaskie",
+      "infectedCount": 358,
+      "deceasedCount": 3
+    },
+    {
+      "region": "pomorskie",
+      "infectedCount": 296,
+      "deceasedCount": 3
+    },
+    {
+      "region": "slaskie",
+      "infectedCount": 1813,
+      "deceasedCount": 93
+    },
+    {
+      "region": "swietokrzyskie",
+      "infectedCount": 255,
+      "deceasedCount": 7
+    },
+    {
+      "region": "warminsko-mazurskie",
+      "infectedCount": 146,
+      "deceasedCount": 1
+    },
+    {
+      "region": "wielkopolskie",
+      "infectedCount": 1266,
+      "deceasedCount": 75
+    },
+    {
+      "region": "zachodniopomorskie",
+      "infectedCount": 343,
+      "deceasedCount": 7
+    }
+  ],
+  "sourceUrl": "https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2",
+  "lastUpdatedAtApify": "2020-04-25T19:00:00.000Z",
+  "readMe": "https://apify.com/vaclavrut/covid-pl"
+}
