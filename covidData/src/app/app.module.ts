@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WorldComponentComponent } from './world-component/world-component.component';
+import { MapModule } from './map/map.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { WorldComponentComponent } from './world-component/world-component.compo
   ],
   imports: [
     BrowserModule,
+    MapModule,
     HttpClientModule,
     AppRoutingModule
   ],

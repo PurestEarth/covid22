@@ -1,5 +1,23 @@
-<div *ngFor="let item of countryList">
-  <a>{{item.country}}</a>
-</div>
+<!-- A first map -->
+<app-map
+  lon=0
+  lat=0
+  zoom=2
+  >
+  <!-- Add a layer OSM -->
+  <app-layer
+    layer= "OSM"
+    opacity= .5
+    visibility= true
+  ></app-layer>
+  <!-- Add interaction -->
+  <app-interaction></app-interaction>
+  <!-- Add a control insde the map (boolmark) -->
+  <app-control></app-control>
+</app-map>
 
-<button (click) = "getCountries()"> Reroll </button>
+
+
+<!-- Define control outside the map -->
+<app-mouse-position></app-mouse-position>
+<app-mouse-position mapId="map1"></app-mouse-position>

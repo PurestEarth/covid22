@@ -1,14 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { WorldService } from '../_services/world-service.service';
 import Country from '../_models/Country';
+import 'ol/ol.css';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import GeoJSON from 'ol/format/GeoJSON';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import {Fill, Stroke, Style, Text} from 'ol/style';
 
 @Component({
   selector: 'app-world-component',
   templateUrl: './world-component.component.html',
-  styleUrls: ['./world-component.component.scss']
+  styleUrls: []
 })
 export class WorldComponentComponent implements OnInit {
   countryList = [];
+
   constructor(private worldService: WorldService) { }
 
   ngOnInit(): void {
@@ -19,6 +27,7 @@ export class WorldComponentComponent implements OnInit {
     this.worldService.getCountries().subscribe( (res: Country[]) => {
       console.log(res);
       this.countryList = res;
-    }, err => console.log(err));
+    }, err => this.countryList.push('BENIZ'));
   }
+
 }
