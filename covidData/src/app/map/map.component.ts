@@ -44,5 +44,6 @@ export class MapComponent implements OnInit {
     }
     this.map.getView().setCenter(fromLonLat([parseFloat(this.lon) || 0, parseFloat(this.lat) || 0]));
     this.map.getView().setZoom(this.zoom);
+
   }
 }
