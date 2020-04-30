@@ -30,4 +30,10 @@ export class WorldComponentComponent implements OnInit {
     }, err => this.countryList.push('BENIZ'));
   }
 
+  getRequestedCountry(message: string) {
+    console.log('THE WAY WE WEEEREE ' + message);
+    //  todo request
+    //  componentToDisplay = message;
+  }
+
 }

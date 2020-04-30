@@ -10,7 +10,7 @@
     opacity= .5
     visibility= true
   ></app-layer>
-  <app-reactive-layer layer = 'countries' ></app-reactive-layer>
+  <app-reactive-layer layer = 'countries' (countryId)="getRequestedCountry($event)"></app-reactive-layer>
   <!-- Add interaction -->
   <app-interaction></app-interaction>
   <!-- Add a control insde the map (boolmark) -->
