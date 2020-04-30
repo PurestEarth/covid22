@@ -7,6 +7,7 @@ import { LayerComponent } from './layer/layer.component';
 import { ControlComponent } from './control/control.component';
 import { MousePositionComponent } from './control/mouse-position.component';
 import { InteractionComponent } from './interaction/interaction.component';
+import { ReactiveLayerComponent } from './reactive-layer/reactive-layer.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { InteractionComponent } from './interaction/interaction.component';
     LayerComponent,
     ControlComponent,
     MousePositionComponent,
-    InteractionComponent
+    InteractionComponent,
+    ReactiveLayerComponent
   ],
   imports: [],
   providers: [
@@ -23,6 +25,7 @@ import { InteractionComponent } from './interaction/interaction.component';
   exports: [
     MapComponent,
     LayerComponent,
+    ReactiveLayerComponent,
     ControlComponent,
     MousePositionComponent,
     InteractionComponent

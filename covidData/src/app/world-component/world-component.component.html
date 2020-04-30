@@ -2,7 +2,7 @@
 <app-map
   lon=0
   lat=0
-  zoom=2
+  zoom=3
   >
   <!-- Add a layer OSM -->
   <app-layer
@@ -10,7 +10,7 @@
     opacity= .5
     visibility= true
   ></app-layer>
-  <app-layer layer="countries"></app-layer>
+  <app-reactive-layer layer = 'countries' ></app-reactive-layer>
   <!-- Add interaction -->
   <app-interaction></app-interaction>
   <!-- Add a control insde the map (boolmark) -->

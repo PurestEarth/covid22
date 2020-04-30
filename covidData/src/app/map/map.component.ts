@@ -27,6 +27,8 @@ export class MapComponent implements OnInit {
 
   @Input() zoom: string;
 
+  @Input() wrapDateLine = false;
+
   map: OlMap;
 
   constructor(

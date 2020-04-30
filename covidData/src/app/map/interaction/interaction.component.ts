@@ -19,24 +19,21 @@ import Synchronize from 'ol-ext/interaction/Synchronize';
 
 export class InteractionComponent implements OnInit {
 
-  /** Define the service
-   */
   constructor(
     private mapService: MapService,
     @Host()
     private mapidService: MapidService
   ) { }
 
-  /** Add new interaction to the map
-   */
   ngOnInit() {
-    // Get the current map
     const map: OlMap = this.mapService.getMap(this.mapidService);
-    // Get the second map to synchronize
     const mapId = this.mapidService.getId();
     const map2 = (mapId === 'map1' ? 'map' : 'map1');
-    // Add interaction
-    const sync = new Synchronize({ maps: [ this.mapService.getMap(map2) ] });
-    map.addInteraction(sync);
+
+    if ( this.mapService.getMap(map2) ){
+      const sync = new Synchronize({ maps: [ this.mapService.getMap(map2) ] });
+      map.addInteraction(sync);
+    }
+
   }
 }
