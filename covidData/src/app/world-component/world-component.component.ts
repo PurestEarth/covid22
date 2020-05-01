@@ -15,7 +15,7 @@ import {Fill, Stroke, Style, Text} from 'ol/style';
   styleUrls: []
 })
 export class WorldComponentComponent implements OnInit {
-  countryList = [];
+  globalList: string;
 
   constructor(private worldService: WorldService) { }
 
@@ -25,13 +25,11 @@ export class WorldComponentComponent implements OnInit {
 
   getCountries(){
     this.worldService.getCountries().subscribe( (res: Country[]) => {
-      console.log(res);
-      this.countryList = res;
-    }, err => this.countryList.push('BENIZ'));
+      this.globalList = JSON.stringify(res);
+    });
   }
 
   getRequestedCountry(message: string) {
-    console.log('THE WAY WE WEEEREE ' + message);
     //  todo request
     //  componentToDisplay = message;
   }
