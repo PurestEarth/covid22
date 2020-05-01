@@ -24,4 +24,7 @@ export default class Country {
   recovered: number;
   deceased: number;
   sourceUrl: string;
+  infectedClass: string;
+  recoveredClass: string;
+  deceasedClass: string;
 }

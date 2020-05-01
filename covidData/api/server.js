@@ -5,6 +5,8 @@ bodyParser = require('body-parser'),
 mongoose = require('mongoose'),
 bearerToken = require('express-bearer-token'),
 config = require('./DB');
+// worldDAO = require('./dao/WorldDAO');
+
 const worldRoute = require('./routes/worldRoute');
 
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(

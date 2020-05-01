@@ -73,6 +73,15 @@ let Country = new Schema({
     },
     sourceUrl:{
       type: String
+    },
+    infectedClass:{
+      type: String
+    },
+    recoveredClass:{
+      type: String
+    },
+    deceasedClass:{
+      type: String
     }
 },{
     collection: 'country'

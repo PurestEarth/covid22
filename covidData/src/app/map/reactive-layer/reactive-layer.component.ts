@@ -6,10 +6,11 @@ import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
-import {Fill, Stroke, Style, Text} from 'ol/style';
 import Country from 'src/app/_models/Country';
-import { of, Observable, BehaviorSubject,  } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { Style } from 'ol/style';
+import { StyleService } from '../_services/style-service.service';
 
 @Component({
   selector: 'app-reactive-layer',
@@ -28,33 +29,14 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
   featureList = new BehaviorSubject([]);
   @Output() countryId = new EventEmitter<string>();
 
-  highlightfill = new Fill({
-    color: 'rgba(255, 191, 0,0.3)'
-  });
-  highlightStrok = new Stroke({
-    color : 'rgba(255, 191, 0,0.3)',
-    width : 1
-  });
-  highlightStyle = new Style({
-    stroke : this.highlightStrok,
-    fill : this.highlightfill
-  });
-  pickedfill = new Fill({
-    color: 'rgba(255, 0, 0,0.3)'
-  });
-  pickedStrok = new Stroke({
-    color : 'rgba(255, 0, 0,0.3)',
-    width : 1
-  });
-  chosenStyle = new Style({
-    stroke : this.pickedStrok,
-    fill : this.pickedfill
-  });
-
   currFocus: [string, Style] = [undefined, undefined];
   currChosen: [string, Style] = [undefined, undefined];
 
-  constructor(private dataHolder: DataHolderService, private mapService: MapService, @Host() private mapidService: MapidService) {
+  constructor(
+    private styleService: StyleService,
+    private dataHolder: DataHolderService,
+    private mapService: MapService,
+    @Host() private mapidService: MapidService) {
     if (this.globalData && this.globalData.length !== 0){
       this.displayGlobalData();
     }
@@ -122,7 +104,7 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
       if ((!(feature.getId() === this.currFocus[0])) && (feature.getId() !== this.currChosen[0])){
         console.log(feature.getId() + ': ' + feature.get('name'));
         const oldStyle = layer.getSource().getFeatureById(feature.getId()).getStyle();
-        layer.getSource().getFeatureById(feature.getId()).setStyle(this.highlightStyle);
+        layer.getSource().getFeatureById(feature.getId()).setStyle(this.styleService.highlightStyle);
         if (this.currFocus[0] !== undefined) {
           layer.getSource().getFeatureById(this.currFocus[0]).setStyle(this.currFocus[1]);
         }
@@ -139,7 +121,7 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
       if (!(feature.getId() === this.currChosen[0])){
         // todo remember to unsubscribe if retarded user will click something else
         const oldStyle = this.currFocus[1];
-        layer.getSource().getFeatureById(feature.getId()).setStyle(this.chosenStyle);
+        layer.getSource().getFeatureById(feature.getId()).setStyle(this.styleService.chosenStyle);
         this.currFocus = [undefined, undefined];
         this.countryId.emit(feature.getId());
         if (this.currChosen[0] !== undefined) {
@@ -160,12 +142,19 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
       res.forEach(element => {
         let currCountry = this.globalMap[element.get('name')];
         if (currCountry){
-          element.setStyle(this.chosenStyle);
+          if (currCountry.infectedClass){
+            element.setStyle(this.styleService.getStyleForClassAndScale('warm', currCountry.infectedClass));
+          }
+          else{
+            element.setStyle(this.styleService.greyedStyle);
+          }
         }
-        // todo klasa ze stylami
+        else{
+          element.setStyle(this.styleService.greyedStyle);
+        }
+        // todo grey
         // todo usa xD
-        // todo skala barw
-
+        // todo skala barw  // assign class to every record
       });
     });
   }
