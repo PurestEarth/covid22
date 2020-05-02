@@ -1,0 +1,14 @@
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Covid 2019 Statistics </span>
+    <span class="spacer"></span>
+    <mat-icon class="icon" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">settings</mat-icon>
+    <mat-menu #menu="matMenu">
+      <mat-radio-group class="radio-group" [(ngModel)]="defStat">
+        <mat-radio-button class="radio-button" *ngFor="let stat of stats" [value] = stat (click) = "emitStat(stat)">{{stat}}</mat-radio-button>
+      </mat-radio-group>
+    </mat-menu>
+
+  </mat-toolbar-row>
+</mat-toolbar>

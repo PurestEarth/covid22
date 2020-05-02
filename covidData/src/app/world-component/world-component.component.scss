@@ -5,9 +5,11 @@ app-map {
   bottom: 2em;
   width: 100%;
 }
-#map1 {
-right: 0;
-left: auto;
+
+app-map-settings {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .ctrl {

@@ -16,7 +16,7 @@ import {Fill, Stroke, Style, Text} from 'ol/style';
 })
 export class WorldComponentComponent implements OnInit {
   globalList: string;
-
+  currStat = 'Infected';
   constructor(private worldService: WorldService) { }
 
   ngOnInit(): void {
@@ -32,6 +32,10 @@ export class WorldComponentComponent implements OnInit {
   getRequestedCountry(message: string) {
     //  todo request
     //  componentToDisplay = message;
+  }
+
+  setRequestedStat(message: string) {
+    this.currStat = message;
   }
 
 }

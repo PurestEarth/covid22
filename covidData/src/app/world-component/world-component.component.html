@@ -1,4 +1,4 @@
-<!-- A first map -->
+<app-navbar (displayStat)="setRequestedStat($event)" ></app-navbar>
 <app-map
   lon=0
   lat=0
@@ -10,15 +10,15 @@
     opacity= .5
     visibility= true
   ></app-layer>
-  <app-reactive-layer passGlobalData = {{globalList}} layer = 'countries' (countryId)="getRequestedCountry($event)"></app-reactive-layer>
-  <!-- Add interaction -->
+  <app-reactive-layer passNewStat = {{currStat}} passGlobalData = {{globalList}} layer = 'countries' (countryId)="getRequestedCountry($event)"></app-reactive-layer>
+
   <app-interaction></app-interaction>
-  <!-- Add a control insde the map (boolmark) -->
+
   <app-control></app-control>
 </app-map>
 
 
-
-<!-- Define control outside the map -->
+<!-- Define control outside the map
 <app-mouse-position></app-mouse-position>
 <app-mouse-position mapId="map1"></app-mouse-position>
+-->

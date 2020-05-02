@@ -23,10 +23,13 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
   @Input() opacity = 1;
   @Input() visibility = true;
   @Input() data = [];
+  currStat = 'Infected';
   globalData: Country[];
   globalMap: { [name: string]: Country} = {};
   layerHolder: VectorLayer;
   featureList = new BehaviorSubject([]);
+  statColor = {Infected: 'warm', Deceased: 'cold', Recovered: 'nature'};
+
   @Output() countryId = new EventEmitter<string>();
 
   currFocus: [string, Style] = [undefined, undefined];
@@ -55,7 +58,14 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
       this.globalData = JSON.parse(value);
       this.displayGlobalData();
     }
- }
+  }
+
+  @Input() set passNewStat(value: string) {
+    if (value && value.length !== 0 && value !== this.currStat){
+      this.currStat = value;
+      this.adjustColours();
+    }
+  }
 
   ngOnInit(): void {
     const map: OlMap = this.mapService.getMap(this.mapidService);
@@ -138,24 +148,54 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
       this.globalMap[elem.country] = elem;
     });
     this.dataHolder.globalMap = this.globalMap;
+    this.adjustColours();
+  }
+
+  adjustColours(){
     this.featureList.pipe(filter((features) => features.length !== 0)).subscribe( res => {
       res.forEach(element => {
         let currCountry = this.globalMap[element.get('name')];
         if (currCountry){
-          if (currCountry.infectedClass){
-            element.setStyle(this.styleService.getStyleForClassAndScale('warm', currCountry.infectedClass));
-          }
-          else{
-            element.setStyle(this.styleService.greyedStyle);
-          }
+          this.setColourAccordingToSettings(currCountry, element);
         }
         else{
           element.setStyle(this.styleService.greyedStyle);
         }
-        // todo grey
         // todo usa xD
-        // todo skala barw  // assign class to every record
       });
     });
+  }
+
+  setColourAccordingToSettings(country, element){
+    console.log('xDDDDDDD ' + this.currStat);
+    switch (this.currStat){
+      case 'Infected': {
+        if (country.infectedClass){
+          element.setStyle(this.styleService.getStyleForClassAndScale(this.statColor[this.currStat], country.infectedClass));
+        }
+        else{
+          element.setStyle(this.styleService.greyedStyle);
+        }
+        break;
+      }
+      case 'Deceased': {
+        if (country.deceasedClass){
+          element.setStyle(this.styleService.getStyleForClassAndScale(this.statColor[this.currStat], country.deceasedClass));
+        }
+        else{
+          element.setStyle(this.styleService.greyedStyle);
+        }
+        break;
+      }
+      case 'Recovered': {
+        if (country.recoveredClass){
+          element.setStyle(this.styleService.getStyleForClassAndScale(this.statColor[this.currStat], country.recoveredClass));
+        }
+        else{
+          element.setStyle(this.styleService.greyedStyle);
+        }
+        break;
+      }
+    }
   }
 }

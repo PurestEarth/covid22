@@ -57,15 +57,15 @@ export class StyleService {
   scaleMap = {purple: this.colorScalePurple, cold: this.colorScaleCold, warm: this.colorScaleWarm, nature: this.colorScaleNature }
 
   private highlightfill = new Fill({
-    color: 'rgba(255, 191, 0,0.3)'
+    color: 'rgba(201, 148, 199,0.3)'
   });
   private highlightStrok = new Stroke({
-    color : 'rgba(255, 191, 0,0.3)',
-    width : 1
+    color : 'rgba(201, 148, 199,0.3)',
+    width : 4
   });
   highlightStyle = new Style({
-    stroke : this.highlightStrok,
-    fill : this.highlightfill
+    fill: this.highlightfill,
+    stroke : this.highlightStrok
   });
   private pickedfill = new Fill({
     color: 'rgba(255, 0, 0,0.3)'

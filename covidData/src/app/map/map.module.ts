@@ -9,6 +9,7 @@ import { MousePositionComponent } from './control/mouse-position.component';
 import { InteractionComponent } from './interaction/interaction.component';
 import { ReactiveLayerComponent } from './reactive-layer/reactive-layer.component';
 
+
 @NgModule({
   declarations: [
     MapComponent,
