@@ -27,4 +27,7 @@ export default class Country {
   infectedClass: string;
   recoveredClass: string;
   deceasedClass: string;
+  infectedHistory: number[];
+  deceasedHistory: number[];
+  recoveredHistory: number[];
 }

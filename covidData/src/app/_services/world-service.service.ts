@@ -13,4 +13,9 @@ export class WorldService {
   getCountries(){
     return this.http.get(this.url);
   }
+
+  getCountry(id: string){
+    return this.http.get(this.url + '/' + id);
+  }
+
 }

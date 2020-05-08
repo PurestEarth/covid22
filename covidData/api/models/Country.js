@@ -82,6 +82,15 @@ let Country = new Schema({
     },
     deceasedClass:{
       type: String
+    },
+    infectedHistory:{
+      type: Array
+    },
+    deceasedHistory:{
+      type: Array
+    },
+    recoveredHistory:{
+      type: Array
     }
 },{
     collection: 'country'

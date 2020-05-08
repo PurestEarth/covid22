@@ -5,7 +5,7 @@ bodyParser = require('body-parser'),
 mongoose = require('mongoose'),
 bearerToken = require('express-bearer-token'),
 config = require('./DB');
-// worldDAO = require('./dao/WorldDAO');
+worldDAO = require('./dao/WorldDAO');
 
 const worldRoute = require('./routes/worldRoute');
 
@@ -23,12 +23,11 @@ app.use(bodyParser.urlencoded({
 extended: false
 }));
 
-
-
 const port = process.env.PORT || 4000;
 
 const server = app.listen(port, function(){
 console.log('Listening on port ' + port);
+
 });
 
 

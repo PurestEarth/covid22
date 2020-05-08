@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     WorldComponentComponent,
     NavbarComponent
+
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,8 @@ import {Fill, Stroke, Style, Text} from 'ol/style';
 export class WorldComponentComponent implements OnInit {
   globalList: string;
   currStat = 'Infected';
+  currCountryId: string;
+  countryForDialog: string;
   constructor(private worldService: WorldService) { }
 
   ngOnInit(): void {
@@ -30,8 +32,14 @@ export class WorldComponentComponent implements OnInit {
   }
 
   getRequestedCountry(message: string) {
-    //  todo request
-    //  componentToDisplay = message;
+    this.currCountryId = message;
+    this.worldService.getCountry(message).subscribe( (res: Country) => {
+      if ( this.currCountryId === message ) {
+          this.countryForDialog = JSON.stringify(res[0]);
+        }
+      }
+    )
+
   }
 
   setRequestedStat(message: string) {

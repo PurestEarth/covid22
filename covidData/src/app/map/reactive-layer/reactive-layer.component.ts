@@ -11,6 +11,8 @@ import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Style } from 'ol/style';
 import { StyleService } from '../_services/style-service.service';
+import { CountryAboutComponent } from '../country/country-about/country-about.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reactive-layer',
@@ -36,6 +38,7 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
   currChosen: [string, Style] = [undefined, undefined];
 
   constructor(
+    public dialog: MatDialog,
     private styleService: StyleService,
     private dataHolder: DataHolderService,
     private mapService: MapService,
@@ -57,6 +60,21 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
     if (value && value.length !== 0 ){
       this.globalData = JSON.parse(value);
       this.displayGlobalData();
+    }
+  }
+
+  @Input() set openCountryDialog(value: string) {
+    if (value ){
+      const country = JSON.parse(value);
+      const dialogRef = this.dialog.open(CountryAboutComponent, {
+        width: '75%',
+        height: '75%',
+        data: { country }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+
+      });
     }
   }
 
@@ -129,11 +147,10 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
     });
     if (feature) {
       if (!(feature.getId() === this.currChosen[0])){
-        // todo remember to unsubscribe if retarded user will click something else
         const oldStyle = this.currFocus[1];
         layer.getSource().getFeatureById(feature.getId()).setStyle(this.styleService.chosenStyle);
         this.currFocus = [undefined, undefined];
-        this.countryId.emit(feature.getId());
+        this.countryId.emit(feature.get('name'));
         if (this.currChosen[0] !== undefined) {
           layer.getSource().getFeatureById(this.currChosen[0]).setStyle(this.currChosen[1]);
         }
@@ -144,6 +161,7 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
 
   displayGlobalData(){
     console.log('DISPLAYIN GLOBAL DATA');
+    console.log(this.globalData);
     this.globalData.forEach( (elem: Country) => {
       this.globalMap[elem.country] = elem;
     });
@@ -161,13 +179,11 @@ export class ReactiveLayerComponent implements OnInit, AfterViewChecked {
         else{
           element.setStyle(this.styleService.greyedStyle);
         }
-        // todo usa xD
       });
     });
   }
 
   setColourAccordingToSettings(country, element){
-    console.log('xDDDDDDD ' + this.currStat);
     switch (this.currStat){
       case 'Infected': {
         if (country.infectedClass){

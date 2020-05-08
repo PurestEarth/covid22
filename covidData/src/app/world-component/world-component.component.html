@@ -4,19 +4,17 @@
   lat=0
   zoom=3
   >
-  <!-- Add a layer OSM -->
   <app-layer
     layer= "OSM"
     opacity= .5
     visibility= true
   ></app-layer>
-  <app-reactive-layer passNewStat = {{currStat}} passGlobalData = {{globalList}} layer = 'countries' (countryId)="getRequestedCountry($event)"></app-reactive-layer>
+  <app-reactive-layer openCountryDialog = {{countryForDialog}} passNewStat = {{currStat}} passGlobalData = {{globalList}} layer = 'countries' (countryId)="getRequestedCountry($event)"></app-reactive-layer>
 
   <app-interaction></app-interaction>
 
   <app-control></app-control>
 </app-map>
-
 
 <!-- Define control outside the map
 <app-mouse-position></app-mouse-position>

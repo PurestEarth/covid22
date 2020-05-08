@@ -1,15 +1,8 @@
 app-map {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
-  bottom: 2em;
-  width: 100%;
-}
-
-app-map-settings {
-  position: absolute;
-  top: 0;
-  left: 0;
+  width: 80%;
 }
 
 .ctrl {
@@ -34,4 +27,11 @@ app-mouse-position >>> div {
 bottom: 0;
 top: auto;
 left: 0;
+}
+
+.mam{
+  position: absolute;
+  bottom:100;
+  left: 500;
+  right: 0;
 }

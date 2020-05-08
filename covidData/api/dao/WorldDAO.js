@@ -86,7 +86,50 @@ function archiveCountry(){
 }
 
 function getCountries(){
-  return Country.find();
+  return Country.find({}, {
+    "_id": 0,
+    "country": 1,
+    "infected": 1,
+    "recovered": 1,
+    "deceased": 1,
+    "infectedClass": 1,
+    "recoveredClass": 1,
+    "deceasedClass": 1
+  });
+}
+
+function getCountry(country){
+  return Country.find({country: country});
+}
+
+// Generates Random Data for show off purpose when API fails
+function fillCountryWithRandomData() {
+  getCountries().then( countries => {
+    countries.forEach(country => {
+      if( !country.infected ) {
+        country.infected = parseInt(country.population * 0.003)
+      }
+      if( !country.recovered ) {
+        country.recovered = parseInt(country.infected * 0.5)
+      }
+      if( !country.deceased ) {
+        country.deceased = parseInt(country.infected * 0.005)
+      }
+      country.infectedHistory = getHalfArray(country.infected, 40)
+      country.recoveredHistory = getHalfArray(country.recovered, 40)
+      country.deceasedHistory = getHalfArray(country.deceased, 40)
+      Country.updateOne({_id: country._id}, { $set: { infected: country.infected, recovered: country.recovered, deceased: country.deceased,
+        infectedHistory: country.infectedHistory, deceasedHistory: country.deceasedHistory, recoveredHistory: country.recoveredHistory } }, {upsert:true} ).then( _ => {
+        console.log(country.country + ' has been updated');
+      }, err => console.log('Something went wrong with ' + country.country + " " + err))
+    });
+  });
+}
+
+function getHalfArray(n, size) {
+  out = [];
+  for (let i = 0; i < size; i++) { out.push(parseInt(n/2*i)) }
+  return out;
 }
 
 function updateCoronaStats(element){
@@ -133,5 +176,7 @@ function saveCountry(element) {
 
 module.exports = {
   getCountries: getCountries,
-  // setClassesForStats: setClassesForStats
+  getCountry: getCountry,
+  fillCountryWithRandomData: fillCountryWithRandomData,
+  setClassesForStats: setClassesForStats
 }
